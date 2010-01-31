@@ -1,0 +1,43 @@
+#!/usr/bin/env zsh
+
+. $ZDOTDIR/functions/extract_archive
+
+DCDIR=$HOME/incoming/dc
+
+pushd $DCDIR
+
+# Extract all releases.
+function exornot()
+{
+	echo "Extracting ${1:t}"
+	yes n | extract_archive $1 2>&1 > /dev/null && rm -rf ${1:h}
+}
+
+function playRm()
+{
+	case ${1:e} in
+		mkv)
+			mkv -really-quiet $1
+			;;
+		*)
+			bigm -really-quiet $1
+			;;
+	esac
+
+	echo "Done watching '$1', remove it? (y/N)"
+	read ans
+
+	case $ans in
+		y|Y|yes)
+			rm $1
+			;;
+		*)
+			return
+			;;
+	esac
+}
+
+for f in $DCDIR/*/*.rar(N); do exornot $f; done
+for f in $DCDIR/*(.N); do playRm $f; done
+
+popd
