@@ -1,0 +1,13 @@
+#!/usr/bin/env zsh
+
+WALLPAPERS=($HOME/media/images/wallpapers/*.jpg)
+WALLPATH=$HOME/media/images/wallpapers/wallpaper
+WALLPAPER=$WALLPAPERS[$RANDOM%$#WALLPAPERS+1]
+
+echo "Using ${WALLPAPER:t} as wallpaper." 1>&2
+ln -sf ${WALLPAPER} $WALLPATH
+setwallpaper $WALLPATH &
+
+if [[ "$1" == "-v" ]] &&
+	zenity --info --title="Setting wallpaper..." \
+	--text="Setting wallpaper to `basename $WALLPAPER`"
