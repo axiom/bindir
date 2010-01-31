@@ -1,0 +1,47 @@
+#!/usr/bin/env zsh
+
+# Wrapper for searching through the MPD database, and queing music and such.
+
+if [ $# -lt 2 ]; then
+	echo 1>&2 "Usage: $0 [-q] [album|artist|track|genre] <search term>"
+	exit 127
+fi
+
+# Cut out interesting parts of the file path. If the function is given a
+# second argument it will not show file extensions.
+function pretty()
+{
+	PRE="s/^\(.*\)\/\(.*\)\/\(.*\)\.\(.*\)$/\\"
+	SUF=' [\4]/'
+	[ $2 ] && SUF='/'
+	sed -e $PRE$1$SUF | sort -u
+}
+
+# If the function is given any argument it clears the current mpd playlist.
+# Then it queues whatever is piped to the function and begin playback.
+function queue()
+{
+	if [ $1 ]; then
+		mpc clear > /dev/null
+		> >(cat) > >(mpc add >/dev/null; mpc play >/dev/null)
+	else
+		cat
+	fi
+}
+
+# Find out if we should queue the result in mpd
+if [ x$1 = 'x-q' ] || [ x$1 = 'x--queue' ] ; then
+	QUEUE=1
+	shift
+fi
+
+# Shift off the first argument so we can use $* later.
+WHAT=$1; shift
+
+mpc search $WHAT "$*" | queue $QUEUE | \
+case $WHAT in
+	album)  pretty 2   | grep -i "$*" ;;
+	artist) pretty 2   | grep -i "$*" ;;
+	genre)  pretty 1 0 | column       ;;
+	title)  pretty 3   | grep -i "$*" ;;
+esac
