@@ -1,0 +1,4 @@
+OUTPUT=$HOME/.config/xresources/theme_xxx_current.xr
+sed s/${1}/URxvt/ $HOME/.config/xresources/theme_$1.xr \
+	> $OUTPUT
+xrdb -merge $OUTPUT
