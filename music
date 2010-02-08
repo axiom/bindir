@@ -3,7 +3,10 @@
 # Wrapper for searching through the MPD database, and queing music and such.
 
 if [ $# -lt 2 ]; then
-	echo 1>&2 "Usage: $0 [-q] [album|artist|track|genre] <search term>"
+	echo 1>&2 "Usage: $0 [-q] <search type> <search term>"
+	echo 1>&2 "Valid search types: "
+	echo 1>&2 "\t<artist|album|title|track|name|genre|date|..."
+	echo 1>&2 "\t composer|performer|comment|disc|filename|any>"
 	exit 127
 fi
 
@@ -44,4 +47,5 @@ case $WHAT in
 	artist) pretty 2   | grep -i "$*" ;;
 	genre)  pretty 1 0 | column       ;;
 	title)  pretty 3   | grep -i "$*" ;;
+	*) pretty 2
 esac
