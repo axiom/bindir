@@ -11,7 +11,7 @@ end
 
 url = "http://chart.apis.google.com/chart?" +
 	"cht=bvs&chbh=a&chs=%dx%d&chco=%s&chd=t:" %
-	[25 * commits.size, 150, palette.join("|")]
+	[[1000, 25 * commits.size].min, 150, palette.join("|")]
 
 url += commits.sort_by{|k,v| k}.map{|_,c| c.to_s}.join(",")
 url += "&chds=%d,%d" %
