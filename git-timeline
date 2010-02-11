@@ -1,0 +1,19 @@
+#!/usr/bin/env ruby
+
+commits = {}
+commits.default = 0
+
+`git log --date=short --pretty=format:%cd`.each do |line|
+	commits[line.strip] += 1
+end
+
+url = "http://chart.apis.google.com/chart?"
+url += "cht=bvs&chs=%dx%d&chco=%s&chd=t:" % [ 500, 100 , "223344" ]
+url += commits.values.map{|c| c.to_s}.join(",")
+url += "&chds=%d,%d" % [0, commits.values.max]
+
+if `[ -x open ]`
+	`open "#{url}"`
+else
+	puts url
+end
