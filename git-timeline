@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
 
+palette = %w{FE4365 FC9D9A F9CDAD C8C8A9 83AF9B}
+
 commits = {}
 commits.default = 0
 
@@ -7,13 +9,18 @@ commits.default = 0
 	commits[line.strip] += 1
 end
 
-url = "http://chart.apis.google.com/chart?"
-url += "cht=bvs&chbh=a&chs=%dx%d&chco=%s&chd=t:" %
-	[ 25 * commits.size, 100 , "223344" ]
-url += commits.sort_by{|k,v| k}.map{|_,c| c.to_s}.join(",")
-url += "&chds=%d,%d" % [0, commits.values.max]
+url = "http://chart.apis.google.com/chart?" +
+	"cht=bvs&chbh=a&chs=%dx%d&chco=%s&chd=t:" %
+	[25 * commits.size, 150, palette.join("|")]
 
-if `[ -x open ]`
+url += commits.sort_by{|k,v| k}.map{|_,c| c.to_s}.join(",")
+url += "&chds=%d,%d" %
+	[0, commits.values.max]
+
+case RUBY_PLATFORM
+when /linux/
+	`x-www-browser "#{url}"`
+when /darwin/
 	`open "#{url}"`
 else
 	puts url
