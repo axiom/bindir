@@ -1,0 +1,23 @@
+#!/usr/bin/env ruby
+
+authors = {}
+authors.default = 0
+author = nil
+
+`git log --stat --no-color`.each do |line|
+
+	if line =~ /Author: ([^<]*)/
+		author = $1.strip
+
+	elsif line =~ /(\d+) insertions.\+., (\d+) deletions.-./
+		authors[author] += $1.to_i + $2.to_i if author
+
+	end
+end
+
+total = authors.values.inject { |a,b| a + b }
+authors = Hash[*authors.keys.zip(authors.values.map { |v| v / total.to_f }).flatten]
+
+authors.sort_by { |k,v| -v }.each do |k,v|
+	puts "%s (%.2f%%)" % [k, v * 100]
+end
