@@ -1,14 +1,29 @@
 #!/usr/bin/env zsh
-
 # Wrapper for searching through the MPD database, and queing music and such.
 
-if [ $# -lt 2 ]; then
-	echo 1>&2 "Usage: $0 [-q] <search type> <search term>"
-	echo 1>&2 "Valid search types: "
-	echo 1>&2 "\t<artist|album|title|track|name|genre|date|..."
-	echo 1>&2 "\t composer|performer|comment|disc|filename|any>"
-	exit 127
-fi
+NAME=$0
+
+# Display usage information. Bla.
+function usage()
+{
+	cat<<EOS
+Usage: $NAME [-q|-a] <search type> <search term>
+EOS
+}
+
+function help()
+{
+	cat<<EOS
+Example:
+	$NAME -q album unknown pleasures
+
+<search type> should be one of:
+	artist, album, title, track, name, genre, date,
+	composer, performer, comment, disc, filename, any
+
+<search term> should just be a string.
+EOS
+}
 
 # Cut out interesting parts of the file path. If the function is given a
 # second argument it will not show file extensions.
@@ -25,22 +40,31 @@ function pretty()
 function queue()
 {
 	if [ $1 ]; then
-		mpc clear > /dev/null
+		[ $1 -eq 1 ] && mpc clear > /dev/null
 		> >(cat) > >(mpc add >/dev/null; mpc play >/dev/null)
 	else
 		cat
 	fi
 }
 
-# Find out if we should queue the result in mpd
-if [ x$1 = 'x-q' ] || [ x$1 = 'x--queue' ] ; then
-	QUEUE=1
-	shift
+# Handle some parameters.
+case $1 in
+	-h|--help)  usage; echo; help; exit 0 ;;
+	-a|--add)   QUEUE=2; shift ;;
+	-q|--queue) QUEUE=1; shift ;;
+esac
+
+# Check the number of arguments.
+if [ $# -lt 2 ] ; then
+	usage 1>&2
+	exit 127
 fi
 
 # Shift off the first argument so we can use $* later.
 WHAT=$1; shift
 
+# grep is used to highlight the search term here, it will not do that by
+# default though, you will have to set some environmental variable to do that.
 mpc search $WHAT "$*" | queue $QUEUE | \
 case $WHAT in
 	album)  pretty 2   | grep -i "$*" ;;
