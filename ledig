@@ -1,0 +1,23 @@
+#!/bin/sh
+
+WAIT=1
+
+for domain in $@
+do
+	case $domain in
+		*.se)
+		PATTERN="not found"
+		;;
+	esac
+
+	whois -H $domain | grep -q "$PATTERN"
+
+	if [ $? -eq 0 ]
+	then
+		echo "* $domain är ledig"
+	else
+		echo "  $domain är upptagen"
+	fi
+
+	sleep $WAIT
+done
