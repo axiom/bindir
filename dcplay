@@ -37,7 +37,7 @@ function playRm()
 	esac
 }
 
-for f in $DCDIR/*/*.rar(N); do exornot $f; done
+for f in $DCDIR/**/*.rar(N); do exornot $f; done
 for f in $DCDIR/*(.N); do playRm $f; done
 
 popd
