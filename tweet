@@ -1,0 +1,1 @@
+curl -u moxiba -d status="$*" http://twitter.com/statuses/update.xml
