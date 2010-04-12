@@ -69,7 +69,7 @@ mpc search $WHAT "$*" | queue $QUEUE | \
 case $WHAT in
 	album)  pretty 2   | grep -i "$*" ;;
 	artist) pretty 2   | grep -i "$*" ;;
-	genre)  pretty 1 0 | column       ;;
+	genre)  pretty 1 0 | ([ -t 1 ] && column || cat) ;;
 	title)  pretty 3   | grep -i "$*" ;;
 	*) pretty 2
 esac
