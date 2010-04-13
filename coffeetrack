@@ -1,17 +1,21 @@
 #!/usr/bin/env sh
+# Keep track of when I'm doing stuff, like drinking coffee, and where I'm
+# doing it.
+#
+# Usage: coffeetrack [what]
+#
+# Where 'what' is just a word, like coffee or pushups.
 
-# Tracks coffee times.
+# Default values.
+WHAT='coffee'
+WHERE='other'
+LOGFILE=$HOME/.coffee.log
 
 case `hostname` in
 	labbusers*) WHERE='qualisys' ;;
-	banana*) WHERE='home' ;;
-	*) WHERE='darksideofthemoon' ;;
+	banana|plum|peach*) WHERE='home' ;;
 esac
 
-if [ x$1 != x ]; then
-	WHAT=$1
-else
-	WHAT='coffee'
-fi
+[ x$1 != x ] && WHAT=$1
 
-echo `date +%FT%H:%M:%S%z` $WHERE $WHAT >> ~/.coffee.log
+echo `date +%FT%H:%M:%S%z` $WHERE $WHAT >> $LOGFILE
