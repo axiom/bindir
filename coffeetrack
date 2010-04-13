@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+# Tracks coffee times.
+
+case `hostname` in
+	labbusers*) WHERE='qualisys' ;;
+	banana*) WHERE='home' ;;
+	*) WHERE='darksideofthemoon' ;;
+esac
+
+if [ x$1 != x ]; then
+	WHAT=$1
+else
+	WHAT='coffee'
+fi
+
+echo `date +%FT%H:%M:%S%z` $WHERE $WHAT >> ~/.coffee.log
