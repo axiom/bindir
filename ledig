@@ -10,7 +10,7 @@ do
 		;;
 	esac
 
-	whois -H $domain | grep -q "$PATTERN"
+	whois $domain | grep -q "$PATTERN"
 
 	if [ $? -eq 0 ]
 	then

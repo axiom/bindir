@@ -1,10 +1,18 @@
-#!/bin/sh
+#!/usr/bin/env zsh
 
-TIMESPEC=seconds
-AT=`TZ=Australia/Sydney date --rfc-3339=$TIMESPEC`
-ET=`TZ=US/Eastern       date --rfc-3339=$TIMESPEC`
-PT=`TZ=US/Pacific       date --rfc-3339=$TIMESPEC`
-ST=`TZ=Europe/Stockholm date --rfc-3339=$TIMESPEC`
+case $OSTYPE in
+	darwin*)
+		FORMAT='+%a, %d %b %Y %H:%M:%S %z'
+		;;
+	*)
+		FORMAT="--rfc-3339=seconds"
+		;;
+esac
+
+AT=`TZ=Australia/Sydney date $FORMAT`
+ET=`TZ=US/Eastern       date $FORMAT`
+PT=`TZ=US/Pacific       date $FORMAT`
+ST=`TZ=Europe/Stockholm date $FORMAT`
 
 echo "   Stockholm $ST"
 echo " Los Angeles $PT"
