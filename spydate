@@ -1,18 +1,10 @@
-#!/usr/bin/env zsh
+#!/bin/sh
 
-case $OSTYPE in
-	darwin*)
-		FORMAT='+%a, %d %b %Y %H:%M:%S %z'
-		;;
-	*)
-		FORMAT="--rfc-3339=seconds"
-		;;
-esac
-
-AT=`TZ=Australia/Sydney date $FORMAT`
-ET=`TZ=US/Eastern       date $FORMAT`
-PT=`TZ=US/Pacific       date $FORMAT`
-ST=`TZ=Europe/Stockholm date $FORMAT`
+FORMAT="%Y-%m-%d %H:%S:%M %Z"
+AT=`TZ=Australia/Sydney date +"$FORMAT"`
+ET=`TZ=US/Eastern       date +"$FORMAT"`
+PT=`TZ=US/Pacific       date +"$FORMAT"`
+ST=`TZ=Europe/Stockholm date +"$FORMAT"`
 
 echo "   Stockholm $ST"
 echo " Los Angeles $PT"
