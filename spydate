@@ -1,10 +1,10 @@
 #!/bin/sh
 
 FORMAT="%Y-%m-%d %H:%S:%M %Z"
-AT=`TZ=Australia/Sydney date +"$FORMAT"`
-ET=`TZ=US/Eastern       date +"$FORMAT"`
-PT=`TZ=US/Pacific       date +"$FORMAT"`
-ST=`TZ=Europe/Stockholm date +"$FORMAT"`
+AT=`TZ=Australia/Sydney    date +"$FORMAT"`
+ET=`TZ=America/New_York    date +"$FORMAT"`
+PT=`TZ=America/Los_Angeles date +"$FORMAT"`
+ST=`TZ=Europe/Stockholm    date +"$FORMAT"`
 
 echo "   Stockholm $ST"
 echo " Los Angeles $PT"
