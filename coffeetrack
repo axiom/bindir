@@ -8,7 +8,7 @@
 
 # Default values.
 WHAT='coffee'
-WHERE='other'
+WHERE='qualisys'
 LOGFILE=$HOME/.coffee.log
 
 case `hostname` in

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-FORMAT="%Y-%m-%d %H:%S:%M %Z"
+FORMAT="%Y-%m-%d %H:%M:%S %Z"
 AT=`TZ=Australia/Sydney    date +"$FORMAT"`
 ET=`TZ=America/New_York    date +"$FORMAT"`
 PT=`TZ=America/Los_Angeles date +"$FORMAT"`
