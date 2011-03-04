@@ -8,11 +8,11 @@
 
 # Default values.
 WHAT='coffee'
-WHERE='other'
+WHERE='duego'
 LOGFILE=$HOME/.coffee.log
 
 case `hostname` in
-	labbusers*) WHERE='qualisys' ;;
+	labbusers*) WHERE='duego' ;;
 	banana|plum|peach*) WHERE='home' ;;
 esac
 
