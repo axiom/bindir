@@ -19,7 +19,7 @@ url += "&chds=%d,%d" %
 
 case RUBY_PLATFORM
 when /linux/
-	`x-www-browser "#{url}"`
+	`xdg-open "#{url}"`
 when /darwin/
 	`open "#{url}"`
 else
