@@ -4,7 +4,7 @@ authors = {}
 authors.default = 0
 author = nil
 
-`git log --stat --no-color`.each do |line|
+`git log --stat --no-color --pretty="Author: %aN"`.each do |line|
 
 	if line =~ /Author: ([^<]*)/
 		author = $1.strip
