@@ -1,12 +1,14 @@
 #!/bin/sh
 
-FORMAT="%Y-%m-%d %H:%M:%S %Z"
-AT=`TZ=Australia/Sydney    date +"$FORMAT"`
-ET=`TZ=America/New_York    date +"$FORMAT"`
-PT=`TZ=America/Los_Angeles date +"$FORMAT"`
-ST=`TZ=Europe/Stockholm    date +"$FORMAT"`
+TIMESPEC=seconds
+AT=`TZ=Australia/Sydney date --rfc-3339=$TIMESPEC`
+ET=`TZ=US/Eastern       date --rfc-3339=$TIMESPEC`
+PT=`TZ=US/Pacific       date --rfc-3339=$TIMESPEC`
+ST=`TZ=Europe/Stockholm date --rfc-3339=$TIMESPEC`
+UT=`TZ=UTC              date -u --rfc-3339=$TIMESPEC`
 
 echo "   Stockholm $ST"
 echo " Los Angeles $PT"
 echo "    New York $ET"
 echo "   Melbourne $AT"
+echo "         UTC $UT"
