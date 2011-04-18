@@ -14,5 +14,5 @@ elif [ $RES -eq 127 ]; then
 else
 	echo "-- Nope, lets try that again though…"
 	sleep 0.5
-	insist $*
+	exec insist $*
 fi
