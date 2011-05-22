@@ -1,0 +1,1 @@
+xclock -digital -strftime "%a %T" -fg black -bg white -update 1 -face "Envy Code R-90" -padding -3
