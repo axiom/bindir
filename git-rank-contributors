@@ -8,10 +8,11 @@ author = nil
 
 	if line =~ /Author: ([^<]*)/
 		author = $1.strip
+		authors[author] += 1
 
 	elsif line =~ /(\d+) insertions.\+., (\d+) deletions.-./
-		authors[author] += $1.to_i + $2.to_i if author
-
+		# Count deletions and insertions.
+		# authors[author] += $1.to_i + $2.to_i if author
 	end
 end
 
