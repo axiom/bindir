@@ -1,0 +1,1 @@
+perl -MYAML=Load -MJSON::Any -E 'say JSON::Any->new->Dump(Load(do { local $/; <> }))'
