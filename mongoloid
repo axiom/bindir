@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if [ -d ~/work/mongo ]; then
+	mongo ${1:-localhost/duego} --shell ~/work/mongo/shellfunctions.js ~/work/mongo/functions.js
+else
+	mongo ${1:-localhost/duego} --shell
+fi

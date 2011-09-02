@@ -8,6 +8,7 @@ echo "Using ${WALLPAPER:t} as wallpaper." 1>&2
 ln -sf ${WALLPAPER} $WALLPATH
 setwallpaper $WALLPATH &
 
-if [[ "$1" == "-v" ]] &&
+if [[ "$1" == "-v" ]]; then
 	zenity --info --title="Setting wallpaper..." \
-	--text="Setting wallpaper to `basename $WALLPAPER`"
+	--text="Setting wallpaper to $(basename $WALLPAPER)"
+fi
