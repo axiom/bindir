@@ -1,1 +1,1 @@
-echo -e '\a'
+echo -n -e '\a'
