@@ -1,0 +1,15 @@
+#!/usr/local/bin/zsh -f
+
+ID="$1"
+EXTENSION="jpeg"
+
+if [[ $ID == '' ]]; then
+	ID=$(zenity --entry --title="Showing duego photo" --text="Paste url")
+fi
+
+if [[ $ID =~ '^http' ]]; then
+	EXTENSION="$(echo $ID | cut -d'/' -f4 | cut -d'_' -f2 | cut -d'.' -f2)"
+	ID="$(echo $ID | cut -d'/' -f4 | cut -d'_' -f1)"
+fi
+
+curl -s "http://phhw.duegocdn.com/${ID}_original.${EXTENSION}" | display -
