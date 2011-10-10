@@ -1,3 +1,8 @@
 #!/usr/bin/env ruby
+if ARGV.count == 0
+	puts Time.now.strftime('%s')
+	exit
+end
+
 FORMAT="%FT%H:%M:%S%z"
 puts ARGV.map {|t| Time.at(t.to_i).strftime(FORMAT) }.join("\n")
