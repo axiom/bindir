@@ -5,11 +5,13 @@ AT=`TZ=Australia/Sydney     date --rfc-3339=$TIMESPEC`
 ET=`TZ=US/Eastern           date --rfc-3339=$TIMESPEC`
 PT=`TZ=US/Pacific           date --rfc-3339=$TIMESPEC`
 ST=`TZ=Europe/Stockholm     date --rfc-3339=$TIMESPEC`
+PL=`TZ=Europe/Warsaw        date --rfc-3339=$TIMESPEC`
 BA=`TZ=America/Buenos_Aires date --rfc-3339=$TIMESPEC`
 MX=`TZ=America/Mexico_City  date --rfc-3339=$TIMESPEC`
 UT=`TZ=UTC                  date -u --rfc-3339=$TIMESPEC`
 
 echo "   Stockholm $ST"
+echo "      Poland $PL"
 echo " Bueno Aires $BA"
 echo " Mexico City $MX"
 echo " Los Angeles $PT"
