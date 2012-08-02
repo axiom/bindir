@@ -1,1 +1,1 @@
-qrencode -s 10 -m 2 -l M -o - | display -
+qrencode -s 10 -m 2 -l M -o - $@ | display -

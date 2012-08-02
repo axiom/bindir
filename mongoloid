@@ -1,5 +1,7 @@
 #!/bin/sh
 
+PATH=/home/majoh/temporary/build/mongodb-linux-x86_64-2.0.5/bin:$PATH
+
 if [ -d ~/work/mongo ]; then
 	mongo ${1:-localhost/duego} --shell ~/work/mongo/shellfunctions.js ~/work/mongo/functions.js
 else
