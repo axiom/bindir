@@ -1,0 +1,20 @@
+#!/usr/bin/env zsh
+
+: ${CSS_FILE="http://saturn.lan/default.css"}
+: ${MATH_JAX="http://saturn.lan/mathjax/MathJax.js"}
+: ${SECTION_DIVS="YES"}
+: ${TABLE_OF_CONTENTS="YES"}
+: ${NUMBER_SECTIONS="YES"}
+
+opts=()
+
+[[ -n $CSS_FILE ]] && opts+="--css=${(q)CSS_FILE}"
+[[ -n $MATH_JAX ]] && opts+="--mathjax=${(q)MATH_JAX}"
+[[ -n $SECTION_DIVS ]] && opts+="--section-divs"
+[[ -n $NUMBER_SECTIONS ]] && opts+="-N"
+[[ -n $TABLE_OF_CONTENTS ]] && opts+="--table-of-contents"
+
+for doc in *.(mkd|markdown|md)
+do
+	pandoc $opts -S -s -5 $doc > ${doc:r}.html
+done
