@@ -1,0 +1,15 @@
+#!/bin/zsh -f
+
+destination_directory=$HOME/work/scrap/img/
+temporary_file=$(mktemp screenshot.XXXXXXX.png)
+
+import $temporary_file
+
+basename=${${(s@.@)temporary_file:t}[1]}_$$
+filename=$(zenity --entry --text="Enter image file name" --entry-text="${basename}").png
+filename=${filename:gs@ @-}
+
+mv $temporary_file $destination_directory/$filename
+chmod +r $destination_directory/$filename
+echo http://saturn.lan/img/$filename | xclip -i
+xclip -o
