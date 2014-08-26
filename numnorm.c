@@ -18,9 +18,11 @@ int main(int argc, char **argv) {
 		}
 	}
 
-	float divider = sum;
+	float divider;
 	if (argv[0] == "numnormbig") {
 		divider = biggest;
+	} else {
+		divider = sum;
 	}
 
 

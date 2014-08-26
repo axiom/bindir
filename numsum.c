@@ -2,10 +2,10 @@
 #include <stdlib.h>
 
 int main(int argc, char **argv) {
-	int sum = 0;
+	float sum = 0;
 	for (int i = 1; i < argc; i++) {
-		sum += atoi(argv[i]);
+		sum += atof(argv[i]);
 	}
-	printf("%d\n", sum);
+	printf("%f\n", sum);
 	return 0;
 }
