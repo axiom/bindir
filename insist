@@ -1,18 +1,62 @@
-#!/bin/sh
+#!/bin/zsh -f
 # Run a command until it returns a successful exit value.
 
-COMMAND=$*
-$*
+try=0
+sound=false
 
-RES=$?
+while [[ ${#@} -gt 0 ]]; do
+	arg=$1
+	shift 1
 
-if [ $RES -eq 0 ]; then
-	exit 0
-elif [ $RES -eq 127 ]; then
-	echo "-- Command not found."
+	case $arg in
+		--) break ;;
+		-s) sound=true ;;
+	esac
+done
+
+command_=$@
+
+if [[ -z $command_ ]]; then
+	echo "usage: insist [-s] -- command"
 	exit 1
-else
-	echo "-- Nope, lets try that again though…"
-	sleep 0.5
-	exec insist $*
 fi
+
+function play() {
+	local file=$1
+	$sound && aplay -q -D 'pulse' $file &!
+}
+
+function fail() {
+	printf "[Failed attempt $try]\n"
+	play /usr/lib64/libreoffice/share/gallery/sounds/laser.wav
+}
+
+function success() {
+	printf "[Success after $try attempts]\n"
+	[[ $try -gt 0 ]] \
+		&& play /usr/lib64/libreoffice/share/gallery/sounds/applause.wav
+}
+
+function wait() {
+	local retries=$1
+	local wait=$[1.3 ** retries]
+	printf "[Waiting %0.2f seconds before next try]\n" $wait
+	sleep $wait
+}
+
+while true; do
+	eval $command_
+
+	case $? in
+		0) success; exit 0 ;;
+		127)
+			fail
+			echo "Command not found" >&2
+			exit 127
+			;;
+		*) fail ;;
+	esac
+
+	try=$[try+1]
+	wait $try
+done
