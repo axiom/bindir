@@ -1,0 +1,4 @@
+#!/bin/zsh -f
+
+char=${1:-=}
+command printf %.s$char {1..$COLUMNS}
