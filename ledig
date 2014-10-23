@@ -5,9 +5,8 @@ WAIT=1
 for domain in $@
 do
 	case $domain in
-		*.se)
-		PATTERN="not found"
-		;;
+		*.se) PATTERN="not found" ;;
+		*.sh) PATTERN="available" ;;
 	esac
 
 	whois $domain | grep -q "$PATTERN"
