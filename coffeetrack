@@ -1,21 +1,14 @@
-#!/usr/bin/env sh
-# Keep track of when I'm doing stuff, like drinking coffee, and where I'm
-# doing it.
-#
-# Usage: coffeetrack [what]
-#
-# Where 'what' is just a word, like coffee or pushups.
+#!/bin/zsh -f
+# Usage: coffeetrack [what] [where]
 
-# Default values.
-WHAT='coffee'
-WHERE='duego'
-LOGFILE=$HOME/.coffee.log
+what=${1:-coffee}
+where=${2:-saltside}
 
-case `hostname` in
-	labbusers*) WHERE='duego' ;;
-	banana|plum|peach*) WHERE='home' ;;
+logfile=$HOME/.coffee.log
+
+case $(hostname) in
+	neptune)            where='duego' ;;
+	banana|plum|peach*) where='home' ;;
 esac
 
-[ x$1 != x ] && WHAT=$1
-
-echo `date +%FT%H:%M:%S%z` $WHERE $WHAT >> $LOGFILE
+echo $(date +%FT%H:%M:%S%z) $where $what >> $logfile
