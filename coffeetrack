@@ -7,8 +7,13 @@ where=${2:-saltside}
 logfile=$HOME/.coffee.log
 
 case $(hostname) in
-	neptune)            where='duego' ;;
-	banana|plum|peach*) where='home' ;;
+	neptune)
+		where='saltside'
+		;;
+
+	banana|plum|peach*)
+		where='home'
+		;;
 esac
 
 echo $(date +%FT%H:%M:%S%z) $where $what >> $logfile
