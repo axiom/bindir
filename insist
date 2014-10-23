@@ -28,13 +28,13 @@ function play() {
 
 function fail() {
 	printf "[Failed attempt $try]\n"
-	play /usr/lib64/libreoffice/share/gallery/sounds/laser.wav
+	mplayer -really-quiet "/home/majoh/media/sound/Sad Trombone Sound Effect - FAIL Sound - Fail Horns.mp3" &!
 }
 
 function success() {
 	printf "[Success after $try attempts]\n"
 	[[ $try -gt 0 ]] \
-		&& play /usr/lib64/libreoffice/share/gallery/sounds/applause.wav
+		&& mplayer -really-quiet "/home/majoh/media/sound/Stadium Applause 1 Sound Effect.mp3" &!
 }
 
 function wait() {
