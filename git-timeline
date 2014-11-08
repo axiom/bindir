@@ -5,7 +5,7 @@ palette = %w{FE4365 FC9D9A F9CDAD C8C8A9 83AF9B}
 commits = {}
 commits.default = 0
 
-`git log --date=short --pretty=format:%cd`.each do |line|
+`git log --date=short --pretty=format:%cd`.lines do |line|
 	commits[line.strip] += 1
 end
 
