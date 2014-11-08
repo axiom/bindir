@@ -1,1 +1,0 @@
-cmatrix -a -b -u 2 -s -C $(randarg blue cyan yellow red green)
