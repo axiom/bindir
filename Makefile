@@ -1,6 +1,6 @@
 CFLAGS=-std=c99 -Wpedantic
 
 %: %.d
-	dmd $@
+	dmd -release $@
 
-all: stderr stdout bigger graph i numnorm numsum randarg unixtime
+all: stderr stdout bigger graph i numnorm numsum randarg unixtime bsonobjectiddate
