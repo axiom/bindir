@@ -1,4 +1,4 @@
 #!/bin/zsh -f
 
 text=${@:-$(xclip -o)}
-qrencode --foreground FF08D4 --background FFD008 -s 10 -m 3 -l M -o - $text | display -
+qrencode -s 10 -m 3 -l M -o - $text | display -
