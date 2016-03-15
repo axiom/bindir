@@ -1,0 +1,53 @@
+#!/bin/zsh -f
+
+set -e
+
+massage() {
+	local i=0
+
+	sort -n | while read t; do
+		local b=$[ 60 * $[ ${t} / 60 ] ]
+		echo "${b}"
+	done | uniq -c | while read c t; do
+		i=$[ i + c ]
+		echo "${t} ${i}"
+	done
+}
+
+dataout="$(mktemp data.XXXXX)"
+gnuout="$(mktemp gnuplot.XXXXX)"
+
+massage > "${dataout}"
+
+output="${1:-|display png:-}"
+
+cat <<-EOF > "${gnuout}"
+@PNG
+set output "${output}"
+
+set title "cumulative events"
+set ylabel "events"
+
+set timefmt "%s"
+set xdata time
+# set format x "%Y-%m-%d"
+set format x "%d/%m"
+
+set xtics timedate out nomirror 3*86400
+set ytics out nomirror
+set mxtics
+
+set border 3
+set grid mxtics, xtics, ytics
+
+set style fill solid 0.25
+
+# set logscale y
+set xrange [:1457564400]
+
+plot '${dataout}' using 1:2 with filledcurves x1 t ''
+EOF
+
+gnuplot "${gnuout}"
+
+rm "${dataout}" "${gnuout}"
