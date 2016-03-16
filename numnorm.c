@@ -4,7 +4,8 @@
 // Normalize numbers on command line
 int main(int argc, char **argv) {
 	if (argc < 2) {
-		return 0;
+		fprintf(stdout, "Need maximum number as argument on command line.\n");
+		return 1;
 	}
 
 	float sum = 0;
