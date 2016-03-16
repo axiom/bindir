@@ -1,4 +1,8 @@
 #!/bin/zsh -f
 
-char=${1:-=}
-command printf %.s$char {1..$COLUMNS}
+printf "\x1b[38;5;214m\x1b[1m"
+char=${1:-━}
+len=${2:-$COLUMNS}
+command printf %.s$char {1..$len}
+echo
+printf "\x1b[0m"
