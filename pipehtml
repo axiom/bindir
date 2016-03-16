@@ -1,0 +1,6 @@
+#!/bin/zsh -f
+
+temp=$(mktemp stdin.XXXXXXXXX.html)
+cat > $temp
+firefox $temp
+rm $temp
