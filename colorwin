@@ -1,4 +1,4 @@
 #!/usr/bin/env zsh
 
 hue=$[${RANDOM}%360]
-convert -size 1920x1920 xc:hsl\($hue,100%,50%\) png:- | feh_docked -z - &
+convert -size 1920x1920 xc:hsl\($hue,100%,50%\) png:- | feh -z - &
