@@ -15,7 +15,7 @@ do
 	then
 		echo "* $domain är ledig"
 	else
-		echo "  $domain är upptagen"
+		echo "  $domain är tagen"
 	fi
 
 	sleep $WAIT
