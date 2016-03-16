@@ -1,0 +1,4 @@
+#!/bin/zsh -f
+
+name=${1:-majoh}
+saltside-status -production=false -sandbox "${name}"
