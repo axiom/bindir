@@ -1,14 +1,39 @@
-#!/bin/sh
+#!/bin/zsh -f
 
-TIMESPEC=seconds
-ST=`TZ=Europe/Stockholm     date --rfc-3339=$TIMESPEC`
-LK=`TZ=Asia/Sri_Lanka       date --rfc-3339=$TIMESPEC`
-GH=`TZ=Africa/Ghana         date --rfc-3339=$TIMESPEC`
-BD=`TZ=BST                  date --rfc-3339=$TIMESPEC`
-UT=`TZ=UTC                  date -u --rfc-3339=$TIMESPEC`
+main() {
+	set -A spytimes
 
-echo "       Ghana $GH"
-echo "   Stockholm $ST"
-echo "   Sri Lanka $LK"
-echo "  Bangladesh $BD"
-echo "         UTC $UT"
+	spytimes+=("Los Angeles" "America/Los_Angeles")
+	spytimes+=("New York" "America/New_York")
+	spytimes+=("UTC" "C")
+	spytimes+=("Ghana" "Africa/Accra")
+	spytimes+=("Nigeria" "Africa/Lagos")
+	spytimes+=("Stockholm" "Europe/Stockholm")
+	spytimes+=("Sri Lanka" "Asia/Colombo")
+	spytimes+=("Bangalore" "Asia/Kolkata")
+	spytimes+=("Bangladesh" "Asia/Dhaka")
+
+	local longest=0
+
+	# Find the longest name so that we can align time output nicely.
+	for name t in $spytimes; do
+		if [[ $longest -lt ${#name} ]]; then
+			longest=${#name}
+		fi
+	done
+
+	for name t in $spytimes; do
+		case $name in
+			UTC) decorate=1 ;;
+			*)   decorate=0 ;;
+		esac
+
+		local attr=""
+
+		[[ $decorate -eq 1 ]] && echo -n "\x1b[1m"
+		printf "%${longest}s %s\n" "$name" "$(TZ=$t date --rfc-2822)"
+		[[ $decorate -eq 1 ]] && echo -n "\x1b[0m"
+	done
+}
+
+main
