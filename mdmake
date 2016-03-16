@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
-: ${CSS_FILE="http://saturn.lan/default.css"}
-: ${MATH_JAX="http://saturn.lan/mathjax/MathJax.js"}
+: ${CSS_FILE=""}
+: ${MATH_JAX="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.5.3/MathJax.js"}
 : ${SECTION_DIVS="YES"}
 : ${TABLE_OF_CONTENTS="YES"}
 : ${NUMBER_SECTIONS="YES"}
@@ -16,5 +16,5 @@ opts=()
 
 for doc in *.(mkd|markdown|md)
 do
-	pandoc $opts -S -s -5 $doc > ${doc:r}.html
+	pandoc $opts -sS -t html5 $doc > ${doc:r}.html
 done
