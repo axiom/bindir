@@ -1,4 +1,4 @@
 #!/bin/zsh -f
 
 text=${@:-$(xclip -o)}
-qrencode -s 10 -m 3 -l M -o - $text | display -
+qrencode -s 15 -m 5 -l H -o - $text | display -
